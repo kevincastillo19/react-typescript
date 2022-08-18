@@ -5,15 +5,15 @@ import { getPersonPhoto } from "./personPhoto";
 
 type props = {
     handleAddPerson: (newPerson:Person) => void;    
-    handleRemovePerson?: (personId:number) => void;
 }
 export const Form = ({handleAddPerson}:props) => {
-    const { register, handleSubmit, formState:{errors}} = useForm<Person>();    
+    const { register, reset, handleSubmit, formState:{errors}} = useForm<Person>();    
     const onSubmit = handleSubmit(data => {
             getPersonPhoto().then(({url, id}) => {
                 data.photo = url
                 data.id = id
                 handleAddPerson(data)
+                reset()
             })
         })
     return (
